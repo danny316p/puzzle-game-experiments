@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Input parameters, change as needed
+MIDDLE_LETTER=O;
+A=I;
+B=M;
+C=P;
+D=S;
+E=R;
+F=Y;
+FILE=wl6;
+OUTFILE=tmpfile;
+
+#The actual puzzle-solving happens in this one liner, which dumps to a file for convenience
+grep -i $MIDDLE_LETTER $FILE | grep \.\.\.\. | grep -iv "[^$MIDDLE_LETTER$A$B$C$D$E$F]" > $OUTFILE;
+
+# Output some other nice info before the solution
+echo "  $A   $B";
+echo "$C   $MIDDLE_LETTER   $D";
+echo "  $E   $F";
+echo " ";
+wc -l $OUTFILE | awk '{print "Number of solutions: " $1}';
+cat $OUTFILE;
+
+# Comment this next line out if you want to keep the result file
+rm $OUTFILE;
+
