@@ -1,0 +1,16 @@
+#!/bin/bash
+
+sed '/^ *$/d' OED.txt > wl1
+sed '/^\s*.\s*$/d' wl1 > wl2
+sed '/^\s*.*- /d' wl2 > wl3
+sed 's/ .*$//' wl3 > wl4
+sed '/^\s*-/d' wl4 > wl5
+sort < wl5 | uniq > wl6
+
+wc -l OED.txt
+wc -l wl1
+wc -l wl2
+wc -l wl3
+wc -l wl4
+wc -l wl5
+wc -l wl6
