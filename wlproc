@@ -1,12 +1,13 @@
 #!/bin/bash
 
-sed '/^ *$/d' OED.txt > wl1
-sed '/^\s*.\s*$/d' wl1 > wl2
-sed '/^\s*.*- /d' wl2 > wl3
-sed 's/ .*$//' wl3 > wl4
-sed '/^\s*-/d' wl4 > wl5
-sort < wl5 | uniq > wl6
+sed '/^ *$/d' OED.txt > wl1 # First pass - Remove blank lines
+sed '/^\s*.\s*$/d' wl1 > wl2 # Remove rows with a single character (such as letter headings)
+sed '/^\s*.*- /d' wl2 > wl3 # Remove prefixes
+sed 's/ .*$//' wl3 > wl4 # Remove any words that aren't at the beginning of a line - potential TODO: find a way to preserve word forms, e.g. axiomatic in the axiom row
+sed '/^\s*-/d' wl4 > wl5 # Remove suffixes
+sort < wl5 | uniq > wl6 # Remove any duplicate words created by the process so far
 
+# Dump statistics in how many rows remain after each pass through the data
 wc -l OED.txt
 wc -l wl1
 wc -l wl2
@@ -14,3 +15,5 @@ wc -l wl3
 wc -l wl4
 wc -l wl5
 wc -l wl6
+
+# Note that this script does NOT delete word lists created during the process, but DOES overwrite previous versions of those lists.
