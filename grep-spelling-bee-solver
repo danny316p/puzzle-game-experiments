@@ -10,6 +10,7 @@ E=R;
 F=Y;
 FILE=wl6;
 OUTFILE=tmpfile;
+PANOUTFILE=ptmpfile;
 
 #The actual puzzle-solving happens in this one liner, which dumps to a file for convenience
 grep -i $MIDDLE_LETTER $FILE | grep \.\.\.\. | grep -iv "[^$MIDDLE_LETTER$A$B$C$D$E$F]" > $OUTFILE;
@@ -22,6 +23,12 @@ echo " ";
 wc -l $OUTFILE | awk '{print "Number of solutions: " $1}';
 cat $OUTFILE;
 
-# Comment this next line out if you want to keep the result file
-rm $OUTFILE;
+# Get the pangrams
+grep -i $A $OUTFILE | grep -i $B | grep -i $C | grep -i $D | grep -i $E | grep -i $F > $PANOUTFILE;
+echo " ";
+wc -l $PANOUTFILE | awk '{print "Number of pangrams: " $1}';
+cat $PANOUTFILE;
+
+# Comment the next line out if you want to keep the result files
+rm $OUTFILE $PANOUTFILE;
 
