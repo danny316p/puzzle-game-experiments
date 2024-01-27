@@ -2,7 +2,7 @@
 
 sed '/^ *$/d' OED.txt > wl1 # First pass - Remove blank lines
 sed '/^\s*.\s*$/d' wl1 > wl2 # Remove rows with a single character (such as letter headings)
-sed '/^\s*.*- /d' wl2 > wl3 # Remove prefixes
+sed '/^\s[a-zA-Z].*- /d' wl2 > wl3 # Remove prefixes
 sed 's/ .*$//' wl3 > wl4 # Remove any words that aren't at the beginning of a line - potential TODO: find a way to preserve word forms, e.g. axiomatic in the axiom row
 sed '/^\s*-/d' wl4 > wl5 # Remove suffixes
 sort < wl5 | uniq > wl6 # Remove any duplicate words created by the process so far
