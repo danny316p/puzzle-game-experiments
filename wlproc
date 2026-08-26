@@ -6,6 +6,7 @@ sed '/^\s[a-zA-Z].*- /d' wl2 > wl3 # Remove prefixes
 sed 's/ .*$//' wl3 > wl4 # Remove any words that aren't at the beginning of a line - potential TODO: find a way to preserve word forms, e.g. axiomatic in the axiom row
 sed '/^\s*-/d' wl4 > wl5 # Remove suffixes
 sort < wl5 | uniq > wl6 # Remove any duplicate words created by the process so far
+sed '/[0-9]\+/d' wl6 > wl7 # Remove lines with digits
 
 # Dump statistics in how many rows remain after each pass through the data
 wc -l OED.txt
@@ -15,5 +16,6 @@ wc -l wl3
 wc -l wl4
 wc -l wl5
 wc -l wl6
+wc -l wl7
 
 # Note that this script does NOT delete word lists created during the process, but DOES overwrite previous versions of those lists.
